@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         main_tv_message.text = getString(R.string.hello_kotlin)
         main_tv_message.textSize = 20.0f
 
-        // 自定义LinearLayout
+        // 自定义LinearLayout, val是不可改变immutable, var是可以改变mutable.
         val view = v<LinearLayout> {
             layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             orientation = LinearLayout.VERTICAL
@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
                 layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 text = "Hello"
                 setTextColor(ContextCompat.getColor(applicationContext, R.color.colorAccent))
-                setPadding(dp_i(20.0f), 0, 0, 0);
+                padLeft = dp_i(20.0f);
+//                setPadding(dp_i(20.0f), 0, 0, 0);
             }
 
             v<TextView> {
@@ -74,4 +75,17 @@ class MainActivity : AppCompatActivity() {
     fun View.dp_i(dp: Float): Int {
         return dp_f(dp).toInt()
     }
+
+    // 使用扩展属性(extension property)
+    var View.padLeft: Int
+            // Specify the setter behavior; value is the assigned Int
+        set(value) {
+            // Use View.setPadding to set left padding value,
+            // uses Kotlin synthetic properties for the others
+            setPadding(value, paddingTop, paddingRight, paddingBottom)
+        }
+            // Specify the getter behavior
+        get() {
+            return paddingLeft
+        }
 }
