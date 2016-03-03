@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">wcl-kotlin-demo</string>
+    <string name="hello_kotlin">Hello Kotlin, I\'m Spike! </string>
 </resources>
