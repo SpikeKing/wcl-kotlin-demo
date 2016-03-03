@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout.LayoutParams
@@ -23,18 +24,19 @@ class MainActivity : AppCompatActivity() {
         main_tv_message.textSize = 20.0f
 
         // 自定义LinearLayout
-        val view = v<LinearLayout>(applicationContext) {
+        val view = v<LinearLayout> {
             layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             orientation = LinearLayout.VERTICAL
 
 
-            v<TextView>(this) {
+            v<TextView> {
                 layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 text = "Hello"
                 setTextColor(ContextCompat.getColor(applicationContext, R.color.colorAccent))
+                setPadding(dp_i(20.0f), 0, 0, 0);
             }
 
-            v<TextView>(this) {
+            v<TextView> {
                 layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 text = "World"
                 setTextColor(ContextCompat.getColor(applicationContext, R.color.colorAccent))
@@ -46,19 +48,30 @@ class MainActivity : AppCompatActivity() {
 
 
     // TextView的构建
-    inline fun <reified TV : View> v(context: Context, init: TV.() -> Unit): TV {
+    inline fun <reified TV : View> Context.v(init: TV.() -> Unit): TV {
         val constr = TV::class.java.getConstructor(Context::class.java);
-        val view = constr.newInstance(context);
+        val view = constr.newInstance(this);
         view.init();
         return view;
     }
 
     // ViewGroup的构建
-    inline fun <reified V : View> v(parent: ViewGroup, init: V.() -> Unit): V {
+    inline fun <reified V : View> ViewGroup.v(init: V.() -> Unit): V {
         val constr = V::class.java.getConstructor(Context::class.java);
-        val view = constr.newInstance(parent.context);
-        parent.addView(view)
+        val view = constr.newInstance(context);
+        addView(view)
         view.init();
         return view;
+    }
+
+    fun View.dp_f(dp: Float): Float {
+        // 引用View的context
+        return TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
+    }
+
+    // 使用扩展函数(extension function)View.
+    fun View.dp_i(dp: Float): Int {
+        return dp_f(dp).toInt()
     }
 }
