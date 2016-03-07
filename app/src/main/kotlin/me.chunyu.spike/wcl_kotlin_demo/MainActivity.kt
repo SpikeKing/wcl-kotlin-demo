@@ -28,13 +28,12 @@ class MainActivity : AppCompatActivity() {
             layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             orientation = LinearLayout.VERTICAL
 
-
+            // 设置属性
             v<TextView> {
                 layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 text = "Hello"
                 setTextColor(ContextCompat.getColor(applicationContext, R.color.colorAccent))
                 padLeft = dp_i(20.0f);
-//                setPadding(dp_i(20.0f), 0, 0, 0);
             }
 
             v<TextView> {
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // TextView的构建
+    // View的模板
     inline fun <reified TV : View> Context.v(init: TV.() -> Unit): TV {
         val constr = TV::class.java.getConstructor(Context::class.java);
         val view = constr.newInstance(this);
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         return view;
     }
 
-    // ViewGroup的构建
+    // ViewGroup的模板
     inline fun <reified V : View> ViewGroup.v(init: V.() -> Unit): V {
         val constr = V::class.java.getConstructor(Context::class.java);
         val view = constr.newInstance(context);
@@ -65,26 +64,24 @@ class MainActivity : AppCompatActivity() {
         return view;
     }
 
+    // 使用扩展函数(extension function)View.
     fun View.dp_f(dp: Float): Float {
         // 引用View的context
         return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
     }
 
-    // 使用扩展函数(extension function)View.
+    // 转换Int
     fun View.dp_i(dp: Float): Int {
         return dp_f(dp).toInt()
     }
 
     // 使用扩展属性(extension property)
     var View.padLeft: Int
-            // Specify the setter behavior; value is the assigned Int
         set(value) {
-            // Use View.setPadding to set left padding value,
-            // uses Kotlin synthetic properties for the others
             setPadding(value, paddingTop, paddingRight, paddingBottom)
         }
-            // Specify the getter behavior
+
         get() {
             return paddingLeft
         }
