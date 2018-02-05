@@ -11,7 +11,6 @@ import android.widget.LinearLayout.LayoutParams
 import android.widget.LinearLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
-import me.chunyu.spike.wcl_kotlin_demo.R
 
 /**
  * Kotlin的主类, 添加设置属性.
