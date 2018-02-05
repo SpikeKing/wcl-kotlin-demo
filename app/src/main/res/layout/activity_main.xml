@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="me.chunyu.spike.wcl_kotlin_demo.MainActivity">
+    tools:context="me.chunyu.spike.wcl_kotlin_demo.org.wangchenlong.wcl_kotlin_demo.MainActivity">
 
     <TextView
         android:id="@+id/main_tv_message"
