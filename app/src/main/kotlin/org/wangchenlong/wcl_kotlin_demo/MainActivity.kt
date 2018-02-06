@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 text = "Hello"
                 setTextColor(ContextCompat.getColor(applicationContext, R.color.colorAccent))
-                padLeft = dp_i(20.0f);
+                padLeft = dp_i(20.0f)
             }
 
             v<TextView> {
@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         set(value) {
             setPadding(value, paddingTop, paddingRight, paddingBottom)
         }
-
         get() {
             return paddingLeft
         }
