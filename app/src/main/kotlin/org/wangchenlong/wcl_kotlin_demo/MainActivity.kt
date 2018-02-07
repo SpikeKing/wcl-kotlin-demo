@@ -49,19 +49,19 @@ class MainActivity : AppCompatActivity() {
 
     // View的模板
     inline fun <reified TV : View> Context.v(init: TV.() -> Unit): TV {
-        val constr = TV::class.java.getConstructor(Context::class.java);
-        val view = constr.newInstance(this);
-        view.init();
-        return view;
+        val cns = TV::class.java.getConstructor(Context::class.java)
+        val view = cns.newInstance(this)
+        view.init()
+        return view
     }
 
     // ViewGroup的模板
     inline fun <reified V : View> ViewGroup.v(init: V.() -> Unit): V {
-        val constr = V::class.java.getConstructor(Context::class.java);
-        val view = constr.newInstance(context);
+        val cns = V::class.java.getConstructor(Context::class.java)
+        val view = cns.newInstance(context)
         addView(view)
-        view.init();
-        return view;
+        view.init()
+        return view
     }
 
     // 使用扩展函数(extension function)View.
